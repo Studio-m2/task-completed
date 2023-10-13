@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+   body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .link {
+      color: #3498db;
+      text-decoration: none;
+      margin: 10px;
+    }
+
+    video {
+      max-width: 100%;
+    }
+
+    select {
+      margin: 20px;
+      padding: 10px;
+    }
+
+
+
+
+
+.selected {
+  border: 2px solid red;
+}
+
+interactive-element {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px;
+  cursor: pointer;
+}
+
+</style>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+ <h1>Welcome to Our Website</h1>
+
+  <button class="button">Subscribe</button>
+  <button class="button">Download</button>
+  <button class="button">Contact Us</button>
+
+  <a class="link" href="https://www.w3schools.com/">Read More</a>
+  <a class="link" href="https://www.w3schools.com/">Visit Our Store</a>
+
+  <video controls>
+    <source src="https://www.example.com/your-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <select>
+    <option value="option1">Option 1</option>
+    <option value="option2">Option 2</option>
+    <option value="option3">Option 3</option>
+  </select>
+
+
+
+
+  <h1>Visual Interaction Selector:</h1>
+  <p class="interactive-element">hello i am text 1</p>
+  <p class="interactive-element">hello i am text 2</p>
+  <p class="interactive-element">hello i am text 3</p>
+  <button id="selection-mode-button">Enter Selection Mode</button>
+  <script>
+  
+  let isSelectionModeActive = false;
+
+const toggleSelectionMode = () => {
+  isSelectionModeActive = !isSelectionModeActive;
+  const interactiveElements = document.querySelectorAll('.interactive-element');
+  interactiveElements.forEach((element) => {
+    element.classList.remove('selected');
+    if (isSelectionModeActive) {
+      element.addEventListener('mouseover', () => {
+        element.classList.add('selected');
+      });
+      element.addEventListener('click', () => {
+        element.classList.toggle('selected');
+      });
+    } else {
+      element.removeEventListener('mouseover', () => {
+        element.classList.add('selected');
+      });
+      element.removeEventListener('click', () => {
+        element.classList.toggle('selected');
+      });
+    }
+  });
+};
+
+const selectionModeButton = document.getElementById('selection-mode-button');
+selectionModeButton.addEventListener('click', toggleSelectionMode);
+  
+  
+  
+  
+  
+  
+  
+  </script>
+  
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const sendEventToGTM = (elementType, elementLabel) => {
+
+    console.log(`Event sent to GTM - Type: ${elementType}, Label: ${elementLabel}`);
+  };
+
+  // Add event listeners to interactive elements
+  const interactiveElements = document.querySelectorAll('.interactive-element');
+  interactiveElements.forEach((element) => {
+    element.addEventListener('click', () => {
+      if (element.classList.contains('selected')) {
+        const elementType = element.tagName.toLowerCase();
+        const elementLabel = element.textContent.trim();
+        sendEventToGTM(elementType, elementLabel);
+      }
+    });
+  });
+
+  
+  const toggleSelectionMode = () => {
+    const isSelectionModeActive = !selectionModeButton.classList.contains('selected');
+    selectionModeButton.classList.toggle('selected', isSelectionModeActive);
+
+    interactiveElements.forEach((element) => {
+      if (isSelectionModeActive) {
+        element.addEventListener('mouseover', () => {
+          element.classList.add('highlighted');
+        });
+        element.addEventListener('click', () => {
+          element.classList.toggle('selected');
+          if (element.classList.contains('selected')) {
+            element.classList.add('selected');
+          } else {
+            element.classList.remove('selected');
+          }
+        });
+      } else {
+        element.removeEventListener('mouseover', () => {
+          element.classList.remove('highlighted');
+        });
+        element.removeEventListener('click', () => {
+          element.classList.remove('selected');
+        });
+      }
+    });
+  };
+
+ 
+  const selectionModeButton = document.getElementById('selection-mode-button');
+  selectionModeButton.addEventListener('click', toggleSelectionMode);
+});
+  </script>
+</body>
+</html>
